@@ -1,0 +1,137 @@
+Before going through it, I hope you are a bit familier with SQL. You don't need any perfection for this but I hope you are at least well known about SQL and it's syntax.
+SQL stands for Structural Query Language and is the programming language used for the management of the data, tables, rows, columns and soon.SQL syntax is the coding format used in writing statements and it is easy to learn and write.We will know more about it once we go through this.Followings are the examples of some commands associated with SQL.
+
+At first, start the mysql CLI with
+mysql-ctl cli; 
+
+For ceating database
+"CREATE DATABASE DATABASE_NAME;", for e.g. create database students_data;
+However, we can write the commands in both lowercase as well as upper case.Double inverted comma is not included while writing the command.You can't include space while ceating sql variables. Instead you can use underscore.
+
+For listing database
+"show databases;"
+
+For deleting/dropping database
+"DROP DATABASE DATABASE_NAME;",for e.g. drop database students_data;
+
+Sometimes, you are shown warnings as well so in order to view that warning the use the following command
+"SHOW WARNINGS;"
+In the same way, you are shown error and in that case you should use the following command
+"SHOW ERROR;"
+
+For using a particular database
+"USE DATABASE_NAME;",for eg. use students_data;
+Let's say you have two database which can be d1 and d2 as an instance.Currently, you are under d1 and if you wanna shift yourself to d2 then you can directly use "use database d2" command to switch yourself to d2 database.
+
+To view in which database that you are currently in
+"SELECT DATABASE();"
+And you can also use this command as well:
+"STATUS;"
+
+Some common datatypes of SQL
+SQL includes numeric , string and date datatypes.Numeric datatype includes int, smallint, tinyint, mediumint, 
+SQL includes numeric , string and date datatypes.Numeric datatype includes int, smallint, tinyint, mediumint, serial8, int8, bigint, bigserial, float, double, bit etc. In the same way, string types includes char, varchar, binary, varbinary, blob, text, enum etc and date datatype includes date, datetime, timestamp, time year etc.However, you don't need to memorize individual of them. You will know the application of each of them once you'll go through each of them.
+
+Following is the syntax for creating a table
+"CREATE TABLE table_NAME(column_name dataype,column_name dataype,column_name dataype)"
+Here is an actual example showing about the creation of table
+"CERATE TABLE students_details(name varchar(30),class int,fee float,Date_Of_Birth date);"
+
+For displaying the tables in your current database
+"SHOW TABLES;" command is used
+
+For viewing columns that are inside table
+"DESC table_name" or "SHOW COLUMNS FROM table_name;", for eg. "DESC students_details;"Which means to say to describe the given table and you can use "DESCRIBE TABLE_NAME" command as well / "show columns from students_details;"
+
+For deleting table
+"DROP TABLE table_name" for eg. "drop table students_details"
+
+Inserting data into your database
+"INSERT INTO table_name(Column1, Column2, Column3) VALUES(V1, V2, V3);" for eg. insert into students_details(class , name) VALUES(12,"Sandesh Regmi");
+Else if you wanna only one data and leave another empty then you can do so by the following
+"INSERT INTO students_details(name) VALUES("Sandesh Regmi");"
+And also,"INSERT INTO students_details() VALUES();"
+And also we can insert the multiple datas just like
+"INSERT INTO table_name(Column1, Column2, Column3) VALUES(V1, V2, V3),(V4, V5, V6),(V7, V8, V9);"
+
+To view the data inserted into the table
+"SELECT * FROM table_NAME;" for eg. SELECT * FROM students_details;
+
+In order to make sure that the inserted data must not be null at all then create the table in the following way:
+"CREATE TABLE table_NAME(Name VARCHAR(100) NOT NULL,Age INT);"And this time whenever you try to leave the name feild blank then this will throw an error.
+
+Something about default values
+This is essential whenever the user don't enter any data in the table and the default values can be declared as the following
+"CREATE TABLE table_NAME(Name VARCHAR(100) DEFAULT "Unnamed",Age INT DEFAULT 1);"
+And you can use both NOT null and default. This is important to avoid voiding. Whenever we insert "NULL" value then the default value will be replaced by null.
+"CREATE TABLE table_NAME(Name VARCHAR(100) NOT NULL DEFAULT "Unnamed",Age INT DEFAULT 1 NOT NULL);"
+Well, I hope you can create a database by yourself by replacing table_name and others by your own preferred name
+
+For inserting every data uniquely, we use primary key
+"CREATE TABLE UNIQUE_DATAS(ID INT NOT NULL, USERNAME VARCHAR(25),PRIMARY KEY(ID));"
+If you wanna increase the id of your datas automatically even though if the user don't insert it, then use "AUTO_INCREMENT" keyword just like
+"CREATE TABLE UNIQUE_DATAS(ID INT AUTO_INCREMENT NOT NULL, USERNAME VARCHAR(25),PRIMARY KEY(ID));"
+And even you can do so in the following way as well:
+"CREATE TABLE UNIQUE_DATAS(ID INT PRIMARY KEY AUTO_INCREMENT NOT NULL, USERNAME VARCHAR(25);"
+
+In order to view particular data entry from a table
+"SELECT COLUMN_NAME1 COLUMN_NAME2 FROM TABLE_NAME;"
+In order to view the whole data entry
+"SELECT * FROM table_NAME;"
+
+Short about "WHERE" statement(Mainly used for applying conditions):
+"Select * FROM TABLE_NAME WHERE (CONDITION JUST LIKE ID>=3, NAME="Sandesh Regmi")"
+
+Let's say you had created the table and inserted the values in it in the following way: 
+CREATE TABLE test(ID int PRIMARY KEY AUTO_INCREMENT NOT NULL, CAMERA_NAME VARCHAR(50) NOT NULL,NEPALI_PRICE FLOAT NOT NULL);
+INSERT INTO test(CAMERA_NAME,NEPALI_PRICE) VALUES("Canon EOS 750D",78000),("ILCE-6000",61000),("Canon EOS 700D",94000);
+
+Updating value from the database
+"UPDATE TABLE_NAME SET COLUMN_NAME=VALUE WHERE (CONDITION);" just like "UPDATE test set NEPALI_PRICE=74000 where CAMERA_NAME="Canon EOS 750D";
+
+Adding a column(However, it is not recommended at all!)
+"ALTER TABLE TABLE_NAME ADD DESIRED_NAME (Now, add it's properties just like default value and many more);". for eg. "ALTER TABLE test ADD CAMERA_NICKNAME VARCHAR(50) PRIMARY KEY;" and you can set the new value of CAMERA_NICKNAME just like "UPDATE test SET CAMERA_NICKNAME= CONCAT(CAMERA_NAME,'_',NEPALI_PRICE);"
+
+
+Deleting the datas from the table:
+"DELETE FROM TABLE_NAME;" Well,this will erase the entire content from that table
+But, if you don't wanna delete everything from your table then you'll need to apply some condition using "where" statement just like in the following way:
+"DELETE FROM TABLE_NAME WHERE (CONDITION);" for eg. "DELETE FROM test WHERE NEPALI_PRICE>=90000;"
+
+AS statement is used to tempororialy change the name of the table just like:
+"SELECT CAMERA_NAME as name, ID from test;"
+
+To select unique datas from table, we use "distinct" statement just like the following way:
+"SELECT DISTINCT COLUMN_NAME1,COLUMN_NAME2 FROM TABLE_NAME;"
+
+For concatinating or binding two columns, we use "concat" statement and use "AS" statement for comfort. Clear your doubt from the following example:
+"SELECT CONCAT(COLUMN_NAME1,COLUMN_NAME) AS NEW_COLUMN_NAME FROM TABLE;" for eg. "SELECT CONCAT(ID, ". ",CAMERA_NAME) as Details from test;"
+
+Using SUBSTRING:
+"SELECT SUBSTRING("I'M SANDESH REGMI",3,3);" and this will return "M S"
+"SELECT SUBSTRING("I'M SANDESH REGMI",3,1);" and this will return "M"
+"SELECT SUBSTRING("I'M SANDESH REGMI",1,11);" and this will return "I'M SANDESH"
+In sql, the indexing starts from 1
+Inside where statement or whenever you are applying condition, you can even use substring as well.
+
+"LIKE" operator is used in sql in order to find the particular character or pattern that might be situated at any index of a column. Here, '%' sign represents 0, 1 or multiple characters and '_' represents one or single character. The following is the way of how it is being used:
+"SELECT * FROM test WHERE CAMERA_NAME LIKE "%ANON";"Notice that, "%ANON" will select all the datas from the test table whose name starts from anything but at least it's name should end with anon in either lower case or upper case.
+'SELECT * FROM test WHERE CAMERA_NAME LIKE "_____";'. Well, this time character with length equal to 5 seeked inside that data inside the table and the respective result will be displayed in the screen.
+
+"ORDER BY" is used to sort the data of the respective table according to the condition just like:
+"SELECT * FROM test ORDER BY NEPALI_PRICE;"
+By default, the arrangement is made in ascending order and if we wanna change it to descending order then we should use the following command:
+"SELECT * FROM test ORDER BY NEPALI_PRICE DESC;"
+In order to sort anything with both ascending/descending order and also with alphabetical order, do the following:
+"SELECT * FROM test ORDER BY NEPALI_PRICE,CAMERA_NAME;"
+Or indexing is also used as per the index of columns just like 1 for ID, 2 for CAMERA_NAME and 3 for NEPALI_PRICE and you can replace the string or name with the number as well.
+"SELECT * FROM test WHERE NEPALI_PRICE>50000 LIMIT 2;" Well, this will just print out two data that initially matches the condition.
+
+In order to run the sql file,
+SOURCE {Path}
+Sql file have the extention of .sql and semicolumn is not used at the end
+
+For counting the rows, use "SELECT COUNT(*) FROM TABLE_NAME;"
+For counting the datas in the particular column, use "SELECT COUNT( DISTINCT COLUMN_NAME) FROM TABLE_NAME;"
+
+You can use ORDER BY, LIMIT and LIKE at the same time. Well, your job is to try this at own and if you can't solve that then leave me your text message in Twitter
